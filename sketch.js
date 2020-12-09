@@ -2,12 +2,16 @@ let state = 0;
 let cWalk;
 let cWalk1;
 let count = 0
+let maxHappiness = 100;
+let happiness = maxHappiness;
 //pet
 let turtleHead;
 let turtleBody = [];
 let xPos = 200;
 let speed = 6;
 //play
+let ballX = 0;
+let ballY = 350;
 let balls = [10];
 let ball;
 let rad = 25;
@@ -32,11 +36,21 @@ let fed = 0;
 let played = 0;
 //Eat
 let level = 0;
-
+let cookies;
+//sound
+let playSound;
+let sleepSound;
+let gameoverSound;
+let toiletSound;
+let bgSound;
+let poopsSound;
+let menuSound;
+let cookieSound;
 
 //pixelartmaker.com
 function preload() {
   loadTurtle();
+  // images
   pear = loadImage("img/food/pear.png")
   pear1 = loadImage("img/food/pear1.png")
   pear2 = loadImage("img/food/pear2.png")
@@ -48,7 +62,7 @@ function preload() {
   night2 = loadImage('img2/night2.png');
   nightcap = loadImage('img2/nightcap.png');
   ballImage = loadImage('img2/ball.png');
-  bg = loadImage("img/defaultBG.png")
+  ball2Image = loadImage('img2/ball2.png');
   toilet = loadImage('img2/toilet.png');
   poop1 = loadImage('img2/poop1.png');
   poop2 = loadImage('img2/poop2.png');
@@ -60,10 +74,22 @@ function preload() {
   heart5 = loadImage("assets/heart5.png");
   heart6 = loadImage("assets/heart6.png");
   thought = loadImage('img2/thought.png');
+
+  // sounds
+  playSound = loadSound('sound/play.wav');
+  sleepSound = loadSound('sound/sleep.wav');
+  gameoverSound = loadSound('sound/gameover.wav');
+  toiletSound = loadSound('sound/toilet.mp3');
+  bgSound = loadSound('sound/bgsound.mp3');
+  poopsSound = loadSound('sound/poops.wav');
+  menuSound = loadSound('sound/menu.mp3');
+  cookieSound = loadSound('sound/cookie.wav');
 };
 
-let cookies;
 function setup() {
+  bgSound.play()
+  bgSound.setVolume(0.02);
+  bgSound.loop()
   // Speed of turtle animation
   frameRate(15);
   createCanvas(800, 800);
@@ -71,8 +97,28 @@ function setup() {
   for (i = 0; i < 10; i++) {
     balls[i] = new Ball(100 + i + random(1, 50), 100 + i + random(1, 30));
   }
-
   cookies = pear;
+
+  // // Your web app's Firebase configuration
+  // var firebaseConfig = {
+  //   apiKey: "AIzaSyDGdVJLm_rpLBGKl35D3eevlirTzBotPEU",
+  //   authDomain: "happy-pet-7be8d.firebaseapp.com",
+  //   projectId: "happy-pet-7be8d",
+  //   storageBucket: "happy-pet-7be8d.appspot.com",
+  //   messagingSenderId: "576531154340",
+  //   appId: "1:576531154340:web:7d1cfb25d84dc23ebdad31"
+  // };
+  // // Initialize Firebase
+  // firebase.initializeApp(firebaseConfig);
+  // console.log(firebase)
+
+  // let database = firebase.database();
+  // let ref = database.ref('state')
+
+  // let data = {
+  //   state
+  // }
+  // ref.push(data)
 }
 
 
@@ -89,8 +135,6 @@ function draw() {
 }
 
 ////////   Start Screens
-let ballX = 0;
-let ballY = 350;
 
 function startScreen() {
   // background(0, 200, 200);
@@ -152,11 +196,11 @@ function instructionScreen() {
   fill('#6E3739');
   text("* Remember to clean the poops constantly", width / 2, height / 2 + 120);
   text("* Remember not to overfeed or exhaust your pet", width / 2, height / 2 + 80);
-  fill('255');
+  fill('#6E3739');
   text("(Press ENTER to play)", width / 2, height / 2 + 240);
-  text("(Press BACKSPACE to return home)", width / 2, height / 2 + 270);
+  text("(Press BACKSPACE to return home)", width / 2, height / 2 + 280);
 
-  fill('255');
+  fill(255);
   textSize(50);
   text("Enjoy playing!", width / 2, height / 2 + 190);
 }
@@ -174,6 +218,10 @@ function endScreen() {
   textFont("Arial");
   textAlign(CENTER);
   text("Sorry, Your pet died", width / 2, height / 2);
+  bgSound.stop()
+  noLoop()
+  gameoverSound.play()
+  gameoverSound.setVolume(0.1);
   // textSize(30);
   // fill(255);
   // text("Press Backspace to Restart", width / 2, height / 2 + 80);

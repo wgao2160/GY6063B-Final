@@ -60,12 +60,12 @@ function drawMenu() {
   pop()
 
   // pear
-  var cxscale = 100;
-  var cyscale = 100;
+  var cxscale = 90;
+  var cyscale = 90;
   candydist = dist(mouseX, mouseY, 70, 700);
   if (candydist < 50) {
-    cxscale = 125;
-    cyscale = 125;
+    cxscale = 120;
+    cyscale = 120;
     hover = true;
     if (hover === true) {
       image(cookies, xPos + 120, 300, 80, 80)
@@ -74,7 +74,7 @@ function drawMenu() {
   else {
     hover = false;
   }
-  image(candyImage, 55, 650, cxscale, cyscale);
+  image(candyImage, 55, 662, cxscale, cyscale);
 
   //sleep
   var clxscale = 75;
@@ -95,28 +95,27 @@ function drawMenu() {
   //play
   var pxscale = 95;
   var pyscale = 95;
-  poisondist = dist(mouseX, mouseY, 475, 685);
+  poisondist = dist(mouseX, mouseY, 659, 675);
 
   if (poisondist < 50) {
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < 5; i++) {
       balls[i].update();
       balls[i].wallcheck();
       balls[i].show();
     }
     pxscale = 110;
     pyscale = 110;
-
     phover = true;
   }
   else {
     phover = false;
   }
-  image(play, 455, 665, pxscale, pyscale);
+  image(play, 640, 660, pxscale, pyscale);
 
   // toilet
   var txscale = 90;
   var tyscale = 90;
-  toiletdist = dist(mouseX, mouseY, 659, 675);
+  toiletdist = dist(mouseX, mouseY, 475, 685);
   if (toiletdist < 50) {
     txscale = 105;
     tyscale = 105;
@@ -125,7 +124,7 @@ function drawMenu() {
   else {
     thover = false;
   }
-  image(toilet, 640, 660, txscale, tyscale);
+  image(toilet, 455, 665, txscale, tyscale);
 }
 
 
@@ -150,19 +149,23 @@ function drawTurtle() {
   // Play
   if (poisondist < 50) {
     phover = true;
-    image(ballImage, xPos + 40, 390, 60, 60)
-    if (played > 7) {
+
+    if (played > 10) {
       // happiness -= 50;
+      image(ballImage, xPos + 40, 390, 60, 60)
       image(thought, xPos + 130, 220, 120, 100)
       fill(0)
       textSize(15)
       text(`I'm so tired!`, xPos + 195, 260)
     }
     if (mouseIsPressed) {
+      image(ballImage, xPos + 40, 390, 60, 60)
+      playSound.play()
+      playSound.setVolume(0.1);
       fed = 0;
       // If pet plays consecutively for more than 4 times,
       // exhaustion causes decrease in happiness
-      if (played > 12) {
+      if (played > 15) {
         happiness -= 50;
       } else {
         happiness += random(10);
@@ -171,25 +174,15 @@ function drawTurtle() {
     }
   }
 
-  // sleep 
-  // if (clockdist < 50) {
-  //   clhover = true;
-  //   getTurtleBody()
-  //   if (mouseIsPressed) {
-  //     night = 400;
-  //     cap = 320;
-  //     // Reset fed and played
-  //     fed = 0;
-  //     played = 0;
-  //     // Increase happiness
-  //     happiness += random(20);
-  //   }
-  // }
+  //sleep
+  if (night === 400 && lastRightFootPositionDown === true) {
+    frameRate(10);
+    getTurtleBody()
+  }
 
 
   // poop
-
-  if (millis() - lastTrigger >= 20000) {
+  if (millis() - lastTrigger >= 5000) {
     happiness -= 10
     poops.push({
       x: random(xPos + 20, xPos + 40),
@@ -201,8 +194,13 @@ function drawTurtle() {
 
   for (let obj of poops) {
     image(poop1, obj.x, obj.y);
+    // if(bgSound === true){
+    // noLoop()
+    // poopsSound.play()
+    // poopsSound.setVolume(0.1);
+    // noloop()
+    // }
   }
-
 
   // Eat 
   if (candydist < 50) {
@@ -215,11 +213,7 @@ function drawTurtle() {
       text(`It's too much!`, xPos + 195, 260)
     }
   }
-
-
 }
-
-
 
 
 function getTurtleHead() {
@@ -256,10 +250,6 @@ function getTurtleBody() {
   lastRightFootPositionDown = !lastRightFootPositionDown;
   return retTurtleBody;
 }
-
-
-
-
 
 // play - ball
 class Ball {

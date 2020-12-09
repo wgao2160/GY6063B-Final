@@ -4,20 +4,13 @@ function drawHappinessBar() {
   fill(100 * (1 - (log(happiness + 1) / log(100))), 255 * (log(happiness + 1) / log(99)), 100);
   rect(120, 60, (happiness / 50.0) * 250, 20);
 
-  // if(happiness > 150){
-  //   happiness = 120
-  // }
-
   fill(0)
   textSize(13)
   text('Eat', 95, 780)
   text('Sleep', 290, 780)
-  text('Play', 490, 780)
-  text('Toilet', 680, 780)
+  text('Play', 680, 780)
+  text('Toilet', 490, 780)
 }
-
-let maxHappiness = 100;
-let happiness = maxHappiness;
 
 function happinessBar() {
   happiness = happiness - 0.1;
@@ -62,8 +55,12 @@ function mousePressed() {
       night = 9999;
       cap = 9999;
       // happiness = 100
+      // getTurtleBody()
     }
     else {
+      // bgSound.stop()
+      sleepSound.play()
+      sleepSound.setVolume(0.2);
       night = 400;
       cap = 320;
       // Reset fed and played
@@ -71,7 +68,7 @@ function mousePressed() {
       played = 0;
       // Increase happiness
       happiness += random(20);
-      getTurtleBody()
+
     }
   }
 
@@ -84,6 +81,8 @@ function mousePressed() {
         if (mouseIsPressed) {
           poops.shift()
           happiness += 5;
+          toiletSound.play()
+          toiletSound.setVolume(0.2);
         }
       }
     }
@@ -104,6 +103,7 @@ function mousePressed() {
         happiness -= 30;
         switch (level) {
           case 0:
+            // noLoop()
             cookies = pear;
             image(cookies, xPos + 120, 300, 80, 80)
             break;
@@ -137,23 +137,30 @@ function mousePressed() {
           case 1:
             cookies = pear1;
             image(cookies, xPos + 120, 300, 80, 80)
+            cookieSound.play()
+            cookieSound.setVolume(0.1);
             break;
           case 2:
             cookies = pear2
             image(cookies, xPos + 120, 300, 80, 80)
+            // cookieSound.play()
+            // cookieSound.setVolume(0.1);
             break;
           case 3:
             cookies = pear3;
             image(cookies, xPos + 120, 300, 80, 80)
+            cookieSound.play()
+            cookieSound.setVolume(0.1);
             break;
           case 4:
             cookies = pear4;
             image(cookies, xPos + 120, 300, 80, 80)
+            cookieSound.play()
+            cookieSound.setVolume(0.1);
             break;
         }
       }
     }
-
   }
 }
 
