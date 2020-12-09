@@ -2,7 +2,7 @@
 function drawHappinessBar() {
   noStroke()
   fill(100 * (1 - (log(happiness + 1) / log(100))), 255 * (log(happiness + 1) / log(99)), 100);
-  rect(120, 60, (happiness / 50.0) * 200, 20);
+  rect(120, 60, (happiness / 50.0) * 250, 20);
 
   // if(happiness > 150){
   //   happiness = 120
@@ -26,7 +26,11 @@ function happinessBar() {
     state = 2;
   }
 
-  if (happiness > 100) {
+  if (happiness >= 100) {
+    happiness = 100;
+  }
+
+  if (happiness > 99.9) {
     // happiness = 100;
     image(heart2, 50, 40, 50, 50);
   }
@@ -52,6 +56,7 @@ function happinessBar() {
 ///////// mouse press
 function mousePressed() {
   // sleep 
+
   if (clhover == true) {
     if (night == 400) {
       night = 9999;
@@ -66,6 +71,7 @@ function mousePressed() {
       played = 0;
       // Increase happiness
       happiness += random(20);
+      getTurtleBody()
     }
   }
 
@@ -73,32 +79,52 @@ function mousePressed() {
 
   if (toiletdist < 50) {
     thover = true;
-    if (mouseIsPressed) {
-
-      poops.shift()
-      happiness += 5;
-      // if (!obj) {
-      //   happiness += 0;
-      // } else {
-      //   delete obj;
-      //   happiness += 20;
-      // }
+    for (let obj of poops) {
+      if (obj) {
+        if (mouseIsPressed) {
+          poops.shift()
+          happiness += 5;
+        }
+      }
     }
   }
 
-
+  //EAT
   if (candydist < 50) {
-    hover = true;
-    if (fed > 9) {
-      // happiness -= 50;
-      image(thought, xPos + 130, 220, 120, 100)
-      fill(0)
-      textSize(15)
-      text(`It's too much!`, xPos + 195, 260)
-    }
+    // hover = true;
+    // if (fed > 9) {
+    //   // happiness -= 50;
+    //   image(thought, xPos + 130, 220, 120, 100)
+    //   fill(0)
+    //   textSize(15)
+    //   text(`It's too much!`, xPos + 195, 260)
+    // }
     if (mouseIsPressed) {
       if (fed > 15) {
         happiness -= 30;
+        switch (level) {
+          case 0:
+            cookies = pear;
+            image(cookies, xPos + 120, 300, 80, 80)
+            break;
+          case 1:
+            cookies = pear1;
+            image(cookies, xPos + 120, 300, 80, 80)
+            break;
+          case 2:
+            cookies = pear2
+            image(cookies, xPos + 120, 300, 80, 80)
+            break;
+          case 3:
+            cookies = pear3;
+            image(cookies, xPos + 120, 300, 80, 80)
+            break;
+          case 4:
+            cookies = pear4;
+            image(cookies, xPos + 120, 300, 80, 80)
+            break;
+        }
+
       } else {
         happiness += random(5);
         fed++;
@@ -121,10 +147,20 @@ function mousePressed() {
             image(cookies, xPos + 120, 300, 80, 80)
             break;
           case 4:
+            cookies = pear4;
+            image(cookies, xPos + 120, 300, 80, 80)
             break;
         }
       }
     }
 
+  }
+}
+
+// Eat - loop images
+function mouseReleased() {
+  level = level + 1;
+  if (level > 4) {
+    level = 0;
   }
 }

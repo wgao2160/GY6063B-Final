@@ -67,7 +67,7 @@ function drawMenu() {
     cxscale = 125;
     cyscale = 125;
     hover = true;
-    if(hover === true){
+    if (hover === true) {
       image(cookies, xPos + 120, 300, 80, 80)
     }
   }
@@ -130,7 +130,7 @@ function drawMenu() {
 
 
 /////////  turtle 
-let obj=true
+
 function drawTurtle() {
   // Increment xPos 
   xPos += speed;
@@ -188,10 +188,9 @@ function drawTurtle() {
 
 
   // poop
-  // every poop, hapiness-5; 
-  // one button clean, happiness+20
 
-  if (millis() - lastTrigger >= 2000) {
+  if (millis() - lastTrigger >= 20000) {
+    happiness -= 10
     poops.push({
       x: random(xPos + 20, xPos + 40),
       y: random(465, 495)
@@ -206,10 +205,18 @@ function drawTurtle() {
 
 
   // Eat 
+  if (candydist < 50) {
+    hover = true;
+    if (fed > 9) {
+      // happiness -= 50;
+      image(thought, xPos + 130, 220, 120, 100)
+      fill(0)
+      textSize(15)
+      text(`It's too much!`, xPos + 195, 260)
+    }
+  }
 
-  
 
-    
 }
 
 
@@ -251,13 +258,7 @@ function getTurtleBody() {
 }
 
 
-// Eat - loop images
-function mouseReleased() {
-  level = level + 1;
-  if (level > 4) {
-    level = 0;
-  }
-}
+
 
 
 // play - ball

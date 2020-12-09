@@ -41,6 +41,7 @@ function preload() {
   pear1 = loadImage("img/food/pear1.png")
   pear2 = loadImage("img/food/pear2.png")
   pear3 = loadImage("img/food/pear3.png")
+  pear4 = loadImage("img/food/pear4.png")
   candyImage = loadImage("img2/candy.png");
   clockImage = loadImage('img2/Clock.png');
   nightImage = loadImage('img2/night.png');
