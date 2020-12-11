@@ -46,29 +46,31 @@ function happinessBar() {
 
 }
 
+let isSleep = false;
+
 ///////// mouse press
 function mousePressed() {
   // sleep 
-
-  if (clhover == true) {
-    if (night == 400) {
-      night = 9999;
-      cap = 9999;
-      // happiness = 100
-      // getTurtleBody()
-    }
-    else {
-      // bgSound.stop()
-      sleepSound.play()
-      sleepSound.setVolume(0.2);
-      night = 400;
-      cap = 320;
-      // Reset fed and played
-      fed = 0;
-      played = 0;
-      // Increase happiness
-      happiness += random(20);
-
+  if (!isSleep) {
+    if (clhover == true) {
+      if (night == 400) {
+        night = 9999;
+        cap = 9999;
+        // happiness = 100
+        // getTurtleBody()
+      }
+      else {
+        // bgSound.stop()
+        sleepSound.play()
+        sleepSound.setVolume(0.2);
+        night = 400;
+        cap = 320;
+        // Reset fed and played
+        fed = 0;
+        played = 0;
+        // Increase happiness
+        happiness += random(20);
+      }
     }
   }
 
@@ -89,75 +91,78 @@ function mousePressed() {
   }
 
   //EAT
-  if (candydist < 50) {
-    // hover = true;
-    // if (fed > 9) {
-    //   // happiness -= 50;
-    //   image(thought, xPos + 130, 220, 120, 100)
-    //   fill(0)
-    //   textSize(15)
-    //   text(`It's too much!`, xPos + 195, 260)
-    // }
-    if (mouseIsPressed) {
-      if (fed > 15) {
-        happiness -= 30;
-        switch (level) {
-          case 0:
-            // noLoop()
-            cookies = pear;
-            image(cookies, xPos + 120, 300, 80, 80)
-            break;
-          case 1:
-            cookies = pear1;
-            image(cookies, xPos + 120, 300, 80, 80)
-            break;
-          case 2:
-            cookies = pear2
-            image(cookies, xPos + 120, 300, 80, 80)
-            break;
-          case 3:
-            cookies = pear3;
-            image(cookies, xPos + 120, 300, 80, 80)
-            break;
-          case 4:
-            cookies = pear4;
-            image(cookies, xPos + 120, 300, 80, 80)
-            break;
-        }
+  if (isSleep) {
+    if (candydist < 50) {
+      // hover = true;
+      // if (fed > 9) {
+      //   // happiness -= 50;
+      //   image(thought, xPos + 130, 220, 120, 100)
+      //   fill(0)
+      //   textSize(15)
+      //   text(`It's too much!`, xPos + 195, 260)
+      // }
 
-      } else {
-        happiness += random(5);
-        fed++;
+      if (mouseIsPressed) {
+        if (fed > 15) {
+          happiness -= 30;
+          switch (level) {
+            case 0:
+              // noLoop()
+              cookies = pear;
+              image(cookies, xPos + 120, 300, 80, 80)
+              break;
+            case 1:
+              cookies = pear1;
+              image(cookies, xPos + 120, 300, 80, 80)
+              break;
+            case 2:
+              cookies = pear2
+              image(cookies, xPos + 120, 300, 80, 80)
+              break;
+            case 3:
+              cookies = pear3;
+              image(cookies, xPos + 120, 300, 80, 80)
+              break;
+            case 4:
+              cookies = pear4;
+              image(cookies, xPos + 120, 300, 80, 80)
+              break;
+          }
 
-        switch (level) {
-          case 0:
-            cookies = pear;
-            image(cookies, xPos + 120, 300, 80, 80)
-            break;
-          case 1:
-            cookies = pear1;
-            image(cookies, xPos + 120, 300, 80, 80)
-            cookieSound.play()
-            cookieSound.setVolume(0.1);
-            break;
-          case 2:
-            cookies = pear2
-            image(cookies, xPos + 120, 300, 80, 80)
-            // cookieSound.play()
-            // cookieSound.setVolume(0.1);
-            break;
-          case 3:
-            cookies = pear3;
-            image(cookies, xPos + 120, 300, 80, 80)
-            cookieSound.play()
-            cookieSound.setVolume(0.1);
-            break;
-          case 4:
-            cookies = pear4;
-            image(cookies, xPos + 120, 300, 80, 80)
-            cookieSound.play()
-            cookieSound.setVolume(0.1);
-            break;
+        } else {
+          happiness += random(5);
+          fed++;
+
+          switch (level) {
+            case 0:
+              cookies = pear;
+              image(cookies, xPos + 120, 300, 80, 80)
+              break;
+            case 1:
+              cookies = pear1;
+              image(cookies, xPos + 120, 300, 80, 80)
+              cookieSound.play()
+              cookieSound.setVolume(0.1);
+              break;
+            case 2:
+              cookies = pear2
+              image(cookies, xPos + 120, 300, 80, 80)
+              // cookieSound.play()
+              // cookieSound.setVolume(0.1);
+              break;
+            case 3:
+              cookies = pear3;
+              image(cookies, xPos + 120, 300, 80, 80)
+              cookieSound.play()
+              cookieSound.setVolume(0.1);
+              break;
+            case 4:
+              cookies = pear4;
+              image(cookies, xPos + 120, 300, 80, 80)
+              cookieSound.play()
+              cookieSound.setVolume(0.1);
+              break;
+          }
         }
       }
     }

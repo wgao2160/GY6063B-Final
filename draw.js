@@ -175,10 +175,13 @@ function drawTurtle() {
   }
 
   //sleep
+
   if (night === 400 && lastRightFootPositionDown === true) {
     frameRate(10);
     getTurtleBody()
   }
+
+
 
 
   // poop
@@ -203,17 +206,19 @@ function drawTurtle() {
   }
 
   // Eat 
-  if (candydist < 50) {
-    hover = true;
-    if (fed > 9) {
-      // happiness -= 50;
-      image(thought, xPos + 130, 220, 120, 100)
-      fill(0)
-      textSize(15)
-      text(`It's too much!`, xPos + 195, 260)
+
+    if (candydist < 50) {
+      hover = true;
+      if (fed > 9) {
+        // happiness -= 50;
+        image(thought, xPos + 130, 220, 120, 100)
+        fill(0)
+        textSize(15)
+        text(`It's too much!`, xPos + 195, 260)
+      }
     }
   }
-}
+
 
 
 function getTurtleHead() {
