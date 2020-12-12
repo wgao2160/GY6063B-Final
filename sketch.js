@@ -1,7 +1,7 @@
 let state = 0;
 let cWalk;
 let cWalk1;
-let count = 0
+let count = 0;
 let maxHappiness = 100;
 let happiness = maxHappiness;
 //pet
@@ -16,7 +16,7 @@ let balls = [10];
 let ball;
 let rad = 25;
 // toilet
-let poops = []
+let poops = [];
 let lastTrigger = 0;
 //menu
 var candyImage;
@@ -145,7 +145,7 @@ function keyPressed() {
 }
 
 
-////////   Start Screens
+////////  Start Screens
 
 function startScreen() {
   // background(0, 200, 200);
@@ -157,15 +157,12 @@ function startScreen() {
   textFont("Arial");
 
   text("Meet your virtual Pet!", width / 2, height / 2 - 50);
-  // text("Welcome!", width / 2, height / 2);
-  // image(heart, width / 2-60, height / 4 +150, 150, 150);
   image(heart, ballX, ballY, 150, 150);
   ballX += 8
   if (ballX > 780) {
     ballX = -100;
   }
   textSize(30);
-  // text("( Press Enter to Begin )", width / 2, height / 2 + 60);
   text("Press Enter to Begin", width / 2, height / 2 + 110);
   text("Press Esc for Instructions", width / 2, height / 2 + 160);
 
@@ -181,7 +178,6 @@ function instructionScreen() {
 
   textSize(50);
   text("Welcome to HAPPY TURTLE", width / 2, height / 4);
-  // text("Welcome to Pocket Turtle Tomogatchi!", width / 2, height / 3);
   image(heart, width / 2 - 60, height / 4 + 10, 180, 180);
 
   textSize(25);
@@ -190,25 +186,24 @@ function instructionScreen() {
   text("(Click on the buttons provided to do so)", width / 2, height / 2 + 40);
   textSize(25);
   fill('#6E3739');
+  text("* Remember your pet can only sleep after play ball with you", width / 2, height / 2 + 80);
   text("* Remember to clean the poops constantly", width / 2, height / 2 + 120);
-  text("* Remember not to overfeed or exhaust your pet", width / 2, height / 2 + 80);
+  text("* Remember not to overfeed or exhaust your pet", width / 2, height / 2 + 160);
   fill('#6E3739');
-  text("(Press ENTER to play)", width / 2, height / 2 + 240);
-  text("(Press BACKSPACE to return home)", width / 2, height / 2 + 280);
+  text("(Press ENTER to play)", width / 2, height / 2 + 290);
+  text("(Press BACKSPACE to return home)", width / 2, height / 2 + 340);
 
   fill(255);
   textSize(50);
-  text("Enjoy playing!", width / 2, height / 2 + 190);
+  text("Enjoy playing!", width / 2, height / 2 + 230);
 }
 
 function playScreen() {
   drawInterface();
   happinessBar();
-  // sleepState();
 }
 
 function endScreen() {
-  // background(0, 200, 200);
   background('#91C26D');
   fill(255);
   textSize(50);

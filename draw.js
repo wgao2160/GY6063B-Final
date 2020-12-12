@@ -16,9 +16,9 @@ function loadTurtle() {
 function drawInterface() {
   drawBorders();
   drawMenu();
-  // drawButtons();
   drawTurtle();
   drawHappinessBar();
+  drawMenuFunc();
 }
 
 //////////// border 
@@ -37,7 +37,6 @@ function drawBorders() {
 }
 
 //////////// Menu
-
 
 function drawMenu() {
   if (hover == true) {
@@ -59,7 +58,7 @@ function drawMenu() {
   image(nightcap, cap + xPos - 210, 260, 170, 170);
   pop()
 
-  // pear
+  // Cookie
   var cxscale = 90;
   var cyscale = 90;
   candydist = dist(mouseX, mouseY, 70, 700);
@@ -79,7 +78,7 @@ function drawMenu() {
   //sleep
   var clxscale = 75;
   var clyscale = 75;
-  clockdist = dist(mouseX, mouseY, 265, 720);
+  clockdist = dist(mouseX, mouseY, 659, 675);
   if (clockdist < 50) {
     getTurtleBody()
     clxscale = 100;
@@ -89,13 +88,13 @@ function drawMenu() {
   else {
     clhover = false;
   }
-  image(clockImage, 250, 670, clxscale, clyscale);
+  image(clockImage, 640, 670, clxscale, clyscale);
 
 
   //play
   var pxscale = 95;
   var pyscale = 95;
-  poisondist = dist(mouseX, mouseY, 659, 675);
+  poisondist = dist(mouseX, mouseY, 265, 720);
 
   if (poisondist < 50) {
     for (i = 0; i < 5; i++) {
@@ -110,7 +109,7 @@ function drawMenu() {
   else {
     phover = false;
   }
-  image(play, 640, 660, pxscale, pyscale);
+  image(play, 250, 670, pxscale, pyscale);
 
   // toilet
   var txscale = 90;
@@ -128,30 +127,11 @@ function drawMenu() {
 }
 
 
-/////////  turtle 
-
-function drawTurtle() {
-  // Increment xPos 
-  xPos += speed;
-  if (xPos > width * 0.73 || xPos < 50) {
-    speed = -speed;
-  }
-  let turtleHeadImg = getTurtleHead();
-  let turtleBodyImg = getTurtleBody();
-
-  // Calculate head alignment
-  var xOffsetHead = (turtleBodyImg.width - turtleHeadImg.width) / 2;
-  image(turtleHeadImg, xPos + xOffsetHead, 300);
-  // Overlap turtle head onto body due to extra line in image
-  image(turtleBodyImg, xPos, 290 + turtleHeadImg.height);
-
-  //////////////////////////////////////////////////////////
+function drawMenuFunc() {
   // Play
   if (poisondist < 50) {
     phover = true;
-
     if (played > 10) {
-      // happiness -= 50;
       image(ballImage, xPos + 40, 390, 60, 60)
       image(thought, xPos + 130, 220, 120, 100)
       fill(0)
@@ -174,12 +154,13 @@ function drawTurtle() {
     }
   }
 
-  //sleep
 
+  //sleep
   if (night === 400 && lastRightFootPositionDown === true) {
     frameRate(10);
     getTurtleBody()
   }
+
 
   // poop
   if (millis() - lastTrigger >= 5000) {
@@ -188,22 +169,14 @@ function drawTurtle() {
       x: random(xPos + 20, xPos + 40),
       y: random(465, 495)
     });
-
     lastTrigger = millis(); // Reset the trigger.
   }
-
   for (let obj of poops) {
     image(poop1, obj.x, obj.y);
-    // if(bgSound === true){
-    // noLoop()
-    // poopsSound.play()
-    // poopsSound.setVolume(0.1);
-    // noloop()
-    // }
   }
 
-  // Eat 
 
+  // Eat 
   if (candydist < 50) {
     hover = true;
     if (fed > 12) {
@@ -223,7 +196,46 @@ function drawTurtle() {
   }
 }
 
+// play - ball
+class Ball {
+  constructor(x, y) {
+    this.p = createVector(x, y);
+    this.speed = createVector(random(8, 15), random(8, 15));
+  }
+  update() {
+    this.p.add(this.speed);
+  }
+  // width * 0.9, height * 0.7
+  wallcheck() {
+    if (this.p.x < rad + 50 || this.p.x > width * 0.9 - rad) {
+      this.speed.x = this.speed.x * -1
+    }
+    if (this.p.y < rad + 30 || this.p.y > height * 0.7 - rad) {
+      this.speed.y = this.speed.y * -1
+    }
+  }
+  show() {
+    fill(0, 255, 0);
+    noStroke();
+    // ellipse(this.p.x, this.p.y, 2 * rad)
+    image(ballImage, this.p.x, this.p.y, 2 * rad, 2 * rad)
+  }
+}
 
+/////////  turtle 
+
+function drawTurtle() {
+  // Increment xPos 
+  xPos += speed;
+  if (xPos > width * 0.73 || xPos < 50) {
+    speed = -speed;
+  }
+  let turtleHeadImg = getTurtleHead();
+  let turtleBodyImg = getTurtleBody();
+  var xOffsetHead = (turtleBodyImg.width - turtleHeadImg.width) / 2;
+  image(turtleHeadImg, xPos + xOffsetHead, 300);
+  image(turtleBodyImg, xPos, 290 + turtleHeadImg.height);
+}
 
 function getTurtleHead() {
   if ((happiness / maxHappiness) >= 0.8) {
@@ -242,14 +254,12 @@ let lastRightFootPositionDown = true;
 function getTurtleBody() {
   var retTurtleBody;
   if (speed < 1) {
-    // Turtle face left feet animation
     if (lastRightFootPositionDown) {
       retTurtleBody = turtleBody[0];
     } else {
       retTurtleBody = turtleBody[1];
     }
   } else {
-    // Turtle face right feet animation
     if (lastRightFootPositionDown) {
       retTurtleBody = turtleBody[2];
     } else {
@@ -259,34 +269,3 @@ function getTurtleBody() {
   lastRightFootPositionDown = !lastRightFootPositionDown;
   return retTurtleBody;
 }
-
-// play - ball
-class Ball {
-  constructor(x, y) {
-    this.p = createVector(x, y);
-    this.speed = createVector(random(8, 15), random(8, 15));
-  }
-  update() {
-    this.p.add(this.speed);
-  }
-
-  // width * 0.9, height * 0.7
-
-  wallcheck() {
-    if (this.p.x < rad + 50 || this.p.x > width * 0.9 - rad) {
-      this.speed.x = this.speed.x * -1
-    }
-    if (this.p.y < rad + 30 || this.p.y > height * 0.7 - rad) {
-      this.speed.y = this.speed.y * -1
-    }
-  }
-
-  show() {
-    fill(0, 255, 0);
-    noStroke();
-    // ellipse(this.p.x, this.p.y, 2 * rad)
-    image(ballImage, this.p.x, this.p.y, 2 * rad, 2 * rad)
-  }
-}
-
-
