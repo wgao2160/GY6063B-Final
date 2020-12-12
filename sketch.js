@@ -76,14 +76,14 @@ function preload() {
   thought = loadImage('img2/thought.png');
 
   // sounds
-  playSound = loadSound('sound/play.wav');
-  sleepSound = loadSound('sound/sleep.wav');
-  gameoverSound = loadSound('sound/gameover.wav');
+  playSound = loadSound('sound/play.mp3');
+  sleepSound = loadSound('sound/sleep.mp3');
+  gameoverSound = loadSound('sound/gameover.mp3');
   toiletSound = loadSound('sound/toilet.mp3');
   bgSound = loadSound('sound/bgsound.mp3');
-  poopsSound = loadSound('sound/poops.wav');
+  poopsSound = loadSound('sound/poops.mp3');
   menuSound = loadSound('sound/menu.mp3');
-  cookieSound = loadSound('sound/cookie.wav');
+  cookieSound = loadSound('sound/cookie.mp3');
 };
 
 function setup() {
@@ -113,26 +113,37 @@ function setup() {
   // console.log(firebase)
 
   // let database = firebase.database();
-  // let ref = database.ref('state')
-
-  // let data = {
-  //   state
-  // }
-  // ref.push(data)
 }
 
 
 function draw() {
-  if (state == 0) {
+  if (state === 0) {
     startScreen();
-  } else if (state == 1) {
+  } else if (state === 1) {
     playScreen();
-  } else if (state == 2) {
+  } else if (state === 2) {
     endScreen();
-  } else if (state == 3) {
+  } else if (state === 3) {
     instructionScreen();
   }
 }
+
+// Keyboard Interactions
+function keyPressed() {
+  // Start Screen
+  if (keyCode === BACKSPACE && state != 0) {
+    state = 0;
+  }
+  // Play Screen
+  if (keyCode === ENTER && state != 1) {
+    state = 1;
+  }
+  // Instruction Screen
+  if (keyCode === ESCAPE && state != 3) {
+    state = 3;
+  }
+}
+
 
 ////////   Start Screens
 
@@ -151,7 +162,7 @@ function startScreen() {
   image(heart, ballX, ballY, 150, 150);
   ballX += 8
   if (ballX > 780) {
-    ballX = 0;
+    ballX = -100;
   }
   textSize(30);
   // text("( Press Enter to Begin )", width / 2, height / 2 + 60);
@@ -160,21 +171,6 @@ function startScreen() {
 
 }
 
-// Keyboard Interactions
-function keyPressed() {
-  // Start Screen
-  if (keyCode === BACKSPACE && state != 0) {
-    state = 0;
-  }
-  // Play Screen
-  if (keyCode === ENTER && state != 1) {
-    state = 1;
-  }
-  // Instruction Screen
-  if (keyCode === ESCAPE && state != 3) {
-    state = 3;
-  }
-}
 
 // instruction page
 function instructionScreen() {
@@ -208,6 +204,7 @@ function instructionScreen() {
 function playScreen() {
   drawInterface();
   happinessBar();
+  // sleepState();
 }
 
 function endScreen() {
@@ -222,8 +219,8 @@ function endScreen() {
   noLoop()
   gameoverSound.play()
   gameoverSound.setVolume(0.1);
-  // textSize(30);
-  // fill(255);
-  // text("Press Backspace to Restart", width / 2, height / 2 + 80);
-
+  textSize(30);
+  textFont("Arial");
+  fill(255);
+  text("(Refresh the page to restart)", width / 2, height / 2 + 80);
 }

@@ -181,9 +181,6 @@ function drawTurtle() {
     getTurtleBody()
   }
 
-
-
-
   // poop
   if (millis() - lastTrigger >= 5000) {
     happiness -= 10
@@ -207,17 +204,24 @@ function drawTurtle() {
 
   // Eat 
 
-    if (candydist < 50) {
-      hover = true;
-      if (fed > 9) {
-        // happiness -= 50;
-        image(thought, xPos + 130, 220, 120, 100)
-        fill(0)
-        textSize(15)
-        text(`It's too much!`, xPos + 195, 260)
-      }
+  if (candydist < 50) {
+    hover = true;
+    if (fed > 12) {
+      // happiness -= 50;
+      image(thought, xPos + 130, 220, 120, 100)
+      fill(0)
+      textSize(15)
+      text(`I don't want it!`, xPos + 195, 260)
+    } else if (fed >= 7 && fed < 12) {
+      image(thought, xPos + 130, 220, 120, 100)
+      fill(0)
+      textSize(15)
+      text(`It's too much!`, xPos + 195, 260)
+    } else {
+
     }
   }
+}
 
 
 
@@ -283,5 +287,6 @@ class Ball {
     // ellipse(this.p.x, this.p.y, 2 * rad)
     image(ballImage, this.p.x, this.p.y, 2 * rad, 2 * rad)
   }
-
 }
+
+
