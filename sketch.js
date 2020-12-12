@@ -187,15 +187,14 @@ function instructionScreen() {
   textSize(25);
   fill('#6E3739');
   text("* Remember your pet can only sleep after play ball with you", width / 2, height / 2 + 80);
-  text("* Remember to clean the poops constantly", width / 2, height / 2 + 120);
-  text("* Remember not to overfeed or exhaust your pet", width / 2, height / 2 + 160);
-  fill('#6E3739');
-  text("(Press ENTER to play)", width / 2, height / 2 + 290);
-  text("(Press BACKSPACE to return home)", width / 2, height / 2 + 340);
+  text("* Remember not to overfeed or exhaust your pet", width / 2, height / 2 + 120);
+  fill('255');
+  text("(Press ENTER to play)", width / 2, height / 2 + 240);
+  text("(Press BACKSPACE to return home)", width / 2, height / 2 + 270);
 
-  fill(255);
+  fill('255');
   textSize(50);
-  text("Enjoy playing!", width / 2, height / 2 + 230);
+  text("Enjoy playing!", width / 2, height / 2 + 190);
 }
 
 function playScreen() {
