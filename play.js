@@ -1,5 +1,4 @@
-///////////  Happiness Bar
-
+// Happiness Bar
 function drawHappinessBar() {
   noStroke()
   fill(100 * (1 - (log(happiness + 1) / log(100))), 255 * (log(happiness + 1) / log(99)), 100);
@@ -25,11 +24,9 @@ function happinessBar() {
   }
 
   if (happiness > 99.9) {
-    // happiness = 100;
     image(heart2, 50, 40, 50, 50);
   }
   if (happiness > 80 && happiness < 100) {
-    // happiness = 100;
     image(heart2, 50, 40, 50, 50);
   }
   if (happiness < 80 && happiness > 60) {
@@ -47,10 +44,8 @@ function happinessBar() {
 
 }
 
-
-///////// mouse press
+// mouse press
 function mousePressed() {
-
   // sleep 
   if (clhover === true) {
     if (night === 400) {
@@ -72,7 +67,6 @@ function mousePressed() {
   }
 
   // poop
-
   if (toiletdist < 50) {
     thover = true;
     for (let obj of poops) {
@@ -87,8 +81,7 @@ function mousePressed() {
     }
   }
 
-  //EAT
-
+  //eat
   if (candydist < 50) {
     if (mouseIsPressed) {
       if (fed > 12) {

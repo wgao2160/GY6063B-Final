@@ -1,5 +1,4 @@
-//////// turtle 
-
+// turtle 
 function loadTurtle() {
   var turtleHeadNames = ["turtleHeadHappy.png", "turtleHeadNormal.png", "turtleHeadSad.png"];
   turtleHead = turtleHeadNames.map(function (name) {
@@ -8,11 +7,9 @@ function loadTurtle() {
   for (var i = 0; i < 5; i++) {
     turtleBody.push(loadImage('assets/turtle/turtleBody' + i + '.png'));
   }
-
 }
 
-/////////// interface
-
+//interface
 function drawInterface() {
   drawBorders();
   drawMenu();
@@ -21,10 +18,8 @@ function drawInterface() {
   drawMenuFunc();
 }
 
-//////////// border 
-
+//border 
 function drawBorders() {
-  // background(0, 200, 200);
   background('#91C26D');
   fill(255);
   noStroke();
@@ -36,8 +31,7 @@ function drawBorders() {
   text("Happy Pet", width / 2, height * 0.8);
 }
 
-//////////// Menu
-
+// Menu
 function drawMenu() {
   if (hover == true) {
     cursor(HAND);
@@ -90,12 +84,10 @@ function drawMenu() {
   }
   image(clockImage, 640, 670, clxscale, clyscale);
 
-
   //play
   var pxscale = 95;
   var pyscale = 95;
   poisondist = dist(mouseX, mouseY, 265, 720);
-
   if (poisondist < 50) {
     for (i = 0; i < 5; i++) {
       balls[i].update();
@@ -143,7 +135,7 @@ function drawMenuFunc() {
       playSound.play()
       playSound.setVolume(0.1);
       fed = 0;
-      // If pet plays consecutively for more than 4 times,
+      // If pet plays consecutively for more than 15 times,
       // exhaustion causes decrease in happiness
       if (played > 15) {
         happiness -= 50;
@@ -154,13 +146,11 @@ function drawMenuFunc() {
     }
   }
 
-
   //sleep
   if (night === 400 && lastRightFootPositionDown === true) {
     frameRate(10);
     getTurtleBody()
   }
-
 
   // poop
   if (millis() - lastTrigger >= 5000) {
@@ -174,7 +164,6 @@ function drawMenuFunc() {
   for (let obj of poops) {
     image(poop1, obj.x, obj.y);
   }
-
 
   // Eat 
   if (candydist < 50) {
@@ -191,7 +180,6 @@ function drawMenuFunc() {
       textSize(15)
       text(`It's too much!`, xPos + 195, 260)
     } else {
-
     }
   }
 }
@@ -222,8 +210,7 @@ class Ball {
   }
 }
 
-/////////  turtle 
-
+// turtle 
 function drawTurtle() {
   // Increment xPos 
   xPos += speed;

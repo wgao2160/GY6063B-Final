@@ -49,7 +49,6 @@ let cookieSound;
 
 //pixelartmaker.com
 function preload() {
-  loadTurtle();
   // images
   pear = loadImage("img/food/pear.png")
   pear1 = loadImage("img/food/pear1.png")
@@ -84,6 +83,8 @@ function preload() {
   poopsSound = loadSound('sound/poops.mp3');
   menuSound = loadSound('sound/menu.mp3');
   cookieSound = loadSound('sound/cookie.mp3');
+  // pet
+  loadTurtle();
 };
 
 function setup() {
@@ -145,17 +146,13 @@ function keyPressed() {
 }
 
 
-////////  Start Screens
-
+// Start Screens
 function startScreen() {
-  // background(0, 200, 200);
   background('#91C26D');
-  // background('lightgreen')
   fill(255);
   textAlign(CENTER);
   textSize(50);
   textFont("Arial");
-
   text("Meet your virtual Pet!", width / 2, height / 2 - 50);
   image(heart, ballX, ballY, 150, 150);
   ballX += 8
@@ -165,7 +162,6 @@ function startScreen() {
   textSize(30);
   text("Press Enter to Begin", width / 2, height / 2 + 110);
   text("Press Esc for Instructions", width / 2, height / 2 + 160);
-
 }
 
 
@@ -190,7 +186,7 @@ function instructionScreen() {
   text("* Remember not to overfeed or exhaust your pet", width / 2, height / 2 + 120);
   fill('255');
   text("(Press ENTER to play)", width / 2, height / 2 + 240);
-  text("(Press BACKSPACE to return home)", width / 2, height / 2 + 270);
+  text("(Press BACKSPACE to return home)", width / 2, height / 2 + 280);
 
   fill('255');
   textSize(50);
